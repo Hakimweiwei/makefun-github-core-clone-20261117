@@ -91,8 +91,8 @@ async function main(): Promise<void> {
   process.stdout.write('[entry] registered; waiting for the env to say done\n');
 
   await waitForDone();
-  server.close();
-  process.stdout.write('[entry] done\n');
+  await new Promise<void>((resolve) => server.close(() => resolve()));
+  process.stdout.write('[entry] forge server closed cleanly; done\n');
 }
 
 try {
